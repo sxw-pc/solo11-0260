@@ -9,3 +9,10 @@ python -m unittest discover -s tests -v
 ```
 
 每个入口均有 `fixtures/<入口>_normal.json` 与 `_failure.json`；`demo` 按业务顺序执行。所有写操作使用 IMMEDIATE 事务，事件 ID 按原文幂等，冲突拒绝。重放从空库逐条执行事件并比较所有业务表。封存只含封存时已收到的事件，缺口填补与冲突仲裁也按实际收到时间计算；补录产生新版本，旧披露仍固定原封存版。冲突的新摘要尚无可信原事件时不能被仲裁为已采纳。时间值是合成逻辑时刻，外部可信时间源与法律权限认证不在项目范围内。
+
+### Local publication-read receipt
+
+`python -B -m auditcourt readcheck --db readcheck.sqlite --fixture fixtures/readcheck_local.json`
+submits captured display observations and returns a receipt after all required clients observed the
+expected display. A route version map records which backing revisions the simulator instruments at
+each read. The current receipt is about the displayed value. It makes no claim about route identity.

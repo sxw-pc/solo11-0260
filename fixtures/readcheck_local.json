@@ -1,0 +1,123 @@
+[
+  {
+    "subsystem": "capture",
+    "op": "source",
+    "event_id": "read-source",
+    "id": "read-simulator",
+    "generation": 1,
+    "collector": "local-lab"
+  },
+  {
+    "subsystem": "capture",
+    "op": "receive",
+    "event_id": "capture-read-n",
+    "id": "obs-read-n",
+    "source": "read-simulator",
+    "generation": 1,
+    "seq": 1,
+    "object_uid": "read-n",
+    "request_id": "req-read-n",
+    "actor": "local-lab",
+    "at": 4,
+    "digest": "f5e855dc99bba22041a79946206d0d1bb740a6b70bbeb31b1c489e3a97794cff"
+  },
+  {
+    "subsystem": "readprobe",
+    "op": "record",
+    "event_id": "record-n",
+    "id": "read-n",
+    "evidence": "obs-read-n",
+    "payload": {
+      "rehearsal": "rehearsal-47",
+      "client": "north",
+      "tick": 4,
+      "display": "ready",
+      "versions": {
+        "blue": "r1",
+        "green": "r2"
+      }
+    }
+  },
+  {
+    "subsystem": "readcheck",
+    "op": "assess",
+    "event_id": "check-before",
+    "rehearsal": "rehearsal-47",
+    "expected_display": "ready",
+    "required_clients": [
+      "north",
+      "south"
+    ]
+  },
+  {
+    "subsystem": "readprobe",
+    "op": "record",
+    "event_id": "record-early",
+    "id": "read-s",
+    "evidence": "obs-read-s",
+    "payload": {
+      "rehearsal": "rehearsal-47",
+      "client": "south",
+      "tick": 6,
+      "display": "ready",
+      "versions": {
+        "blue": "r2",
+        "green": "r1"
+      }
+    }
+  },
+  {
+    "subsystem": "capture",
+    "op": "receive",
+    "event_id": "capture-read-s",
+    "id": "obs-read-s",
+    "source": "read-simulator",
+    "generation": 1,
+    "seq": 2,
+    "object_uid": "read-s",
+    "request_id": "req-read-s",
+    "actor": "local-lab",
+    "at": 6,
+    "digest": "4105535c093650b98b59b0884b4be135a680d11fe46fe1922aaa1faa36373b94"
+  },
+  {
+    "subsystem": "readprobe",
+    "op": "record",
+    "event_id": "record-s",
+    "id": "read-s",
+    "evidence": "obs-read-s",
+    "payload": {
+      "rehearsal": "rehearsal-47",
+      "client": "south",
+      "tick": 6,
+      "display": "ready",
+      "versions": {
+        "blue": "r2",
+        "green": "r1"
+      }
+    }
+  },
+  {
+    "subsystem": "readcheck",
+    "op": "assess",
+    "event_id": "check-after",
+    "rehearsal": "rehearsal-47",
+    "expected_display": "ready",
+    "required_clients": [
+      "north",
+      "south"
+    ]
+  },
+  {
+    "subsystem": "readcheck",
+    "op": "receipt",
+    "event_id": "load-before",
+    "id": "check-before"
+  },
+  {
+    "subsystem": "readcheck",
+    "op": "receipt",
+    "event_id": "load-after",
+    "id": "check-after"
+  }
+]
