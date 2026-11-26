@@ -9,3 +9,10 @@ python -m unittest discover -s tests -v
 ```
 
 每个入口均有 `fixtures/<入口>_normal.json` 与 `_failure.json`；`demo` 按业务顺序执行。所有写操作使用 IMMEDIATE 事务，事件 ID 按原文幂等，冲突拒绝。重放从空库逐条执行事件并比较所有业务表。封存只含封存时已收到的事件，缺口填补与冲突仲裁也按实际收到时间计算；补录产生新版本，旧披露仍固定原封存版。冲突的新摘要尚无可信原事件时不能被仲裁为已采纳。时间值是合成逻辑时刻，外部可信时间源与法律权限认证不在项目范围内。
+
+### Local alarm replacement exercise
+
+`python -B -m auditcourt alarmgate --db alarmtrial.sqlite --fixture fixtures/alarmtrial_local.json`
+imports synthetic time-series captures and scores timely candidate alerts on observed hazards. The
+records preserve both alarm outputs, exogenous profiles and executed actuator actions. The current
+score is descriptive and leaves intervention-adjusted policy assessment to a later evaluator.

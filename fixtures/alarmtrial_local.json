@@ -1,0 +1,478 @@
+[
+  {
+    "subsystem": "capture",
+    "op": "source",
+    "event_id": "trial-source",
+    "id": "alarm-simulator",
+    "collector": "local-lab",
+    "generation": 1
+  },
+  {
+    "subsystem": "capture",
+    "op": "receive",
+    "event_id": "capture-fan-live",
+    "id": "obs-fan-live",
+    "source": "alarm-simulator",
+    "generation": 1,
+    "seq": 1,
+    "object_uid": "fan-live",
+    "request_id": "req-fan-live",
+    "actor": "local-lab",
+    "at": 12,
+    "digest": "0e0e82beb429701ac034ee70c4859576604cafb059405d57aa3d97c2460fae39"
+  },
+  {
+    "subsystem": "trialtrace",
+    "op": "ingest",
+    "event_id": "ingest-fan-live",
+    "id": "fan-live",
+    "trace": {
+      "batch": "drill-9",
+      "profile": "ramp",
+      "role": "observed",
+      "forcing": "step-40",
+      "samples": [
+        {
+          "tick": 0,
+          "levels": "baseline",
+          "incumbent": false,
+          "candidate": false
+        },
+        {
+          "tick": 1,
+          "levels": "baseline",
+          "incumbent": false,
+          "candidate": false
+        },
+        {
+          "tick": 2,
+          "levels": "baseline",
+          "incumbent": false,
+          "candidate": false
+        },
+        {
+          "tick": 3,
+          "levels": "baseline",
+          "incumbent": true,
+          "candidate": false
+        },
+        {
+          "tick": 4,
+          "levels": "baseline",
+          "incumbent": false,
+          "candidate": false
+        },
+        {
+          "tick": 5,
+          "levels": "cooled",
+          "incumbent": false,
+          "candidate": false
+        },
+        {
+          "tick": 6,
+          "levels": "cooled",
+          "incumbent": false,
+          "candidate": false
+        },
+        {
+          "tick": 7,
+          "levels": "cooled",
+          "incumbent": false,
+          "candidate": true
+        },
+        {
+          "tick": 8,
+          "levels": "cooled",
+          "incumbent": false,
+          "candidate": false
+        },
+        {
+          "tick": 9,
+          "levels": "cooled",
+          "incumbent": false,
+          "candidate": false
+        },
+        {
+          "tick": 10,
+          "levels": "cooled",
+          "incumbent": false,
+          "candidate": false
+        },
+        {
+          "tick": 11,
+          "levels": "cooled",
+          "incumbent": false,
+          "candidate": false
+        },
+        {
+          "tick": 12,
+          "levels": "cooled",
+          "incumbent": false,
+          "candidate": false
+        }
+      ],
+      "hazard_at": null,
+      "actions": [
+        {
+          "tick": 5,
+          "actuator": "fan"
+        }
+      ]
+    },
+    "evidence": "obs-fan-live"
+  },
+  {
+    "subsystem": "alarmgate",
+    "op": "evaluate",
+    "event_id": "judge-1",
+    "batch": "drill-9",
+    "required_lead": 3
+  },
+  {
+    "subsystem": "capture",
+    "op": "receive",
+    "event_id": "capture-actually-hot",
+    "id": "obs-actually-hot",
+    "source": "alarm-simulator",
+    "generation": 1,
+    "seq": 2,
+    "object_uid": "actually-hot",
+    "request_id": "req-actually-hot",
+    "actor": "local-lab",
+    "at": 12,
+    "digest": "f69337c5912a3257a9bcd28fb95342d2a3cb77ae53228099477f70e7363bce4e"
+  },
+  {
+    "subsystem": "trialtrace",
+    "op": "ingest",
+    "event_id": "ingest-actually-hot",
+    "id": "actually-hot",
+    "trace": {
+      "batch": "drill-9",
+      "profile": "steady",
+      "role": "observed",
+      "forcing": "hold-90",
+      "samples": [
+        {
+          "tick": 0,
+          "levels": "baseline",
+          "incumbent": false,
+          "candidate": false
+        },
+        {
+          "tick": 1,
+          "levels": "baseline",
+          "incumbent": false,
+          "candidate": false
+        },
+        {
+          "tick": 2,
+          "levels": "baseline",
+          "incumbent": false,
+          "candidate": false
+        },
+        {
+          "tick": 3,
+          "levels": "baseline",
+          "incumbent": false,
+          "candidate": false
+        },
+        {
+          "tick": 4,
+          "levels": "baseline",
+          "incumbent": true,
+          "candidate": true
+        },
+        {
+          "tick": 5,
+          "levels": "loading",
+          "incumbent": false,
+          "candidate": false
+        },
+        {
+          "tick": 6,
+          "levels": "loading",
+          "incumbent": false,
+          "candidate": false
+        },
+        {
+          "tick": 7,
+          "levels": "loading",
+          "incumbent": false,
+          "candidate": false
+        },
+        {
+          "tick": 8,
+          "levels": "loading",
+          "incumbent": false,
+          "candidate": false
+        },
+        {
+          "tick": 9,
+          "levels": "loading",
+          "incumbent": false,
+          "candidate": false
+        },
+        {
+          "tick": 10,
+          "levels": "loading",
+          "incumbent": false,
+          "candidate": false
+        },
+        {
+          "tick": 11,
+          "levels": "loading",
+          "incumbent": false,
+          "candidate": false
+        },
+        {
+          "tick": 12,
+          "levels": "loading",
+          "incumbent": false,
+          "candidate": false
+        }
+      ],
+      "hazard_at": 9,
+      "actions": []
+    },
+    "evidence": "obs-actually-hot"
+  },
+  {
+    "subsystem": "alarmgate",
+    "op": "evaluate",
+    "event_id": "judge-2",
+    "batch": "drill-9",
+    "required_lead": 3
+  },
+  {
+    "subsystem": "capture",
+    "op": "receive",
+    "event_id": "capture-ramp-twin",
+    "id": "obs-ramp-twin",
+    "source": "alarm-simulator",
+    "generation": 1,
+    "seq": 3,
+    "object_uid": "ramp-twin",
+    "request_id": "req-ramp-twin",
+    "actor": "local-lab",
+    "at": 12,
+    "digest": "1b3c7e543d738b4bab56ae8a8d29f39c0a41f84dfdbd99620cbfb066e2889f4d"
+  },
+  {
+    "subsystem": "trialtrace",
+    "op": "ingest",
+    "event_id": "ingest-ramp-twin",
+    "id": "ramp-twin",
+    "trace": {
+      "batch": "drill-9",
+      "profile": "ramp",
+      "role": "control",
+      "forcing": "step-40",
+      "samples": [
+        {
+          "tick": 0,
+          "levels": "baseline",
+          "incumbent": false,
+          "candidate": false
+        },
+        {
+          "tick": 1,
+          "levels": "baseline",
+          "incumbent": false,
+          "candidate": false
+        },
+        {
+          "tick": 2,
+          "levels": "baseline",
+          "incumbent": false,
+          "candidate": false
+        },
+        {
+          "tick": 3,
+          "levels": "baseline",
+          "incumbent": true,
+          "candidate": false
+        },
+        {
+          "tick": 4,
+          "levels": "baseline",
+          "incumbent": false,
+          "candidate": false
+        },
+        {
+          "tick": 5,
+          "levels": "loading",
+          "incumbent": false,
+          "candidate": false
+        },
+        {
+          "tick": 6,
+          "levels": "loading",
+          "incumbent": false,
+          "candidate": false
+        },
+        {
+          "tick": 7,
+          "levels": "loading",
+          "incumbent": false,
+          "candidate": false
+        },
+        {
+          "tick": 8,
+          "levels": "loading",
+          "incumbent": false,
+          "candidate": false
+        },
+        {
+          "tick": 9,
+          "levels": "loading",
+          "incumbent": false,
+          "candidate": true
+        },
+        {
+          "tick": 10,
+          "levels": "loading",
+          "incumbent": false,
+          "candidate": false
+        },
+        {
+          "tick": 11,
+          "levels": "loading",
+          "incumbent": false,
+          "candidate": false
+        },
+        {
+          "tick": 12,
+          "levels": "loading",
+          "incumbent": false,
+          "candidate": false
+        }
+      ],
+      "hazard_at": 10,
+      "actions": []
+    },
+    "evidence": "obs-ramp-twin"
+  },
+  {
+    "subsystem": "capture",
+    "op": "receive",
+    "event_id": "capture-slow-twin",
+    "id": "obs-slow-twin",
+    "source": "alarm-simulator",
+    "generation": 1,
+    "seq": 4,
+    "object_uid": "slow-twin",
+    "request_id": "req-slow-twin",
+    "actor": "local-lab",
+    "at": 12,
+    "digest": "8244c22cfeff795e398a50d757f6b5fc7ba645df524d84c7bc80d479e5419a16"
+  },
+  {
+    "subsystem": "trialtrace",
+    "op": "ingest",
+    "event_id": "ingest-slow-twin",
+    "id": "slow-twin",
+    "trace": {
+      "batch": "drill-9",
+      "profile": "ramp",
+      "role": "control",
+      "forcing": "step-20",
+      "samples": [
+        {
+          "tick": 0,
+          "levels": "baseline",
+          "incumbent": false,
+          "candidate": false
+        },
+        {
+          "tick": 1,
+          "levels": "baseline",
+          "incumbent": false,
+          "candidate": false
+        },
+        {
+          "tick": 2,
+          "levels": "baseline",
+          "incumbent": false,
+          "candidate": false
+        },
+        {
+          "tick": 3,
+          "levels": "baseline",
+          "incumbent": true,
+          "candidate": false
+        },
+        {
+          "tick": 4,
+          "levels": "baseline",
+          "incumbent": false,
+          "candidate": false
+        },
+        {
+          "tick": 5,
+          "levels": "loading",
+          "incumbent": false,
+          "candidate": false
+        },
+        {
+          "tick": 6,
+          "levels": "loading",
+          "incumbent": false,
+          "candidate": false
+        },
+        {
+          "tick": 7,
+          "levels": "loading",
+          "incumbent": false,
+          "candidate": false
+        },
+        {
+          "tick": 8,
+          "levels": "loading",
+          "incumbent": false,
+          "candidate": false
+        },
+        {
+          "tick": 9,
+          "levels": "loading",
+          "incumbent": false,
+          "candidate": true
+        },
+        {
+          "tick": 10,
+          "levels": "loading",
+          "incumbent": false,
+          "candidate": false
+        },
+        {
+          "tick": 11,
+          "levels": "loading",
+          "incumbent": false,
+          "candidate": false
+        },
+        {
+          "tick": 12,
+          "levels": "loading",
+          "incumbent": false,
+          "candidate": false
+        }
+      ],
+      "hazard_at": 12,
+      "actions": []
+    },
+    "evidence": "obs-slow-twin"
+  },
+  {
+    "subsystem": "alarmgate",
+    "op": "evaluate",
+    "event_id": "judge-controls",
+    "batch": "drill-9",
+    "required_lead": 3
+  },
+  {
+    "subsystem": "alarmgate",
+    "op": "receipt",
+    "event_id": "show-prior",
+    "id": "judge-1"
+  }
+]
