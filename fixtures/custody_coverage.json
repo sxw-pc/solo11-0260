@@ -1,0 +1,93 @@
+[
+  {
+    "subsystem": "capture",
+    "op": "source",
+    "event_id": "src",
+    "id": "s",
+    "generation": 1,
+    "collector": "c"
+  },
+  {
+    "subsystem": "capture",
+    "op": "receive",
+    "event_id": "e2",
+    "id": "r2",
+    "source": "s",
+    "generation": 1,
+    "seq": 2,
+    "object_uid": "o",
+    "request_id": "q2",
+    "actor": "ops",
+    "at": 2,
+    "digest": "two"
+  },
+  {
+    "subsystem": "coverage",
+    "op": "attest",
+    "event_id": "g1",
+    "id": "c1",
+    "source": "s",
+    "generation": 1,
+    "collector": "c",
+    "first": 1,
+    "last": 2,
+    "at": 3
+  },
+  {
+    "subsystem": "seal",
+    "op": "seal",
+    "event_id": "s1",
+    "id": "s1",
+    "object_uid": "o",
+    "version": 1,
+    "at": 3,
+    "receipt": "sr1"
+  },
+  {
+    "subsystem": "capture",
+    "op": "receive",
+    "event_id": "e1",
+    "id": "r1",
+    "source": "s",
+    "generation": 1,
+    "seq": 1,
+    "object_uid": "o",
+    "request_id": "q1",
+    "actor": "ops",
+    "at": 1,
+    "received_at": 4,
+    "digest": "one"
+  },
+  {
+    "subsystem": "coverage",
+    "op": "attest",
+    "event_id": "g2",
+    "id": "c2",
+    "source": "s",
+    "generation": 1,
+    "collector": "c",
+    "first": 1,
+    "last": 2,
+    "at": 5
+  },
+  {
+    "subsystem": "seal",
+    "op": "seal",
+    "event_id": "s2",
+    "id": "s2",
+    "prior": "s1",
+    "object_uid": "o",
+    "version": 2,
+    "at": 5,
+    "receipt": "sr2"
+  },
+  {
+    "subsystem": "custody",
+    "op": "vault",
+    "event_id": "v1",
+    "id": "v1",
+    "zone": "north",
+    "capacity": 1,
+    "at": 5
+  }
+]
