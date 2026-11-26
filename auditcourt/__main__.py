@@ -1,9 +1,9 @@
 import argparse,json
 from pathlib import Path
 from .store import connect,replay,many
-from . import capture,seal,hold
+from . import capture,seal,hold,specimen,trial
 def main():
-    p=argparse.ArgumentParser();p.add_argument('command',choices=['capture','seal','hold','demo','replay','report']);p.add_argument('--db',default='demo.sqlite');p.add_argument('--fixture');a=p.parse_args()
+    p=argparse.ArgumentParser();p.add_argument('command',choices=['capture','seal','hold','specimen','trial','demo','replay','report']);p.add_argument('--db',default='demo.sqlite');p.add_argument('--fixture');a=p.parse_args()
     if a.command=='replay':result=replay(a.db)
     else:
         db=connect(a.db)
@@ -11,7 +11,7 @@ def main():
         else:
             paths=([Path('fixtures')/n for n in ['capture_normal.json','seal_normal.json','hold_normal.json','capture_failure.json','seal_failure.json','hold_failure.json']] if a.command=='demo' else [Path(a.fixture)] if a.fixture else [])
             if not paths:p.error('--fixture required')
-            modules={'capture':capture,'seal':seal,'hold':hold};result=[]
+            modules={'capture':capture,'seal':seal,'hold':hold,'specimen':specimen,'trial':trial};result=[]
             for path in paths:
                 default=path.name.split('_')[0] if a.command=='demo' else a.command
                 result.append({'fixture':str(path),'outcomes':[modules[x.get('subsystem',default)].run(db,x) for x in json.loads(path.read_text(encoding='utf8'))]})

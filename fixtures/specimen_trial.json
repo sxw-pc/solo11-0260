@@ -1,0 +1,72 @@
+[
+  {
+    "subsystem": "trial",
+    "op": "probe",
+    "event_id": "before",
+    "id": "before",
+    "sample": "D",
+    "probe": "Y"
+  },
+  {
+    "subsystem": "specimen",
+    "op": "install",
+    "event_id": "fixture-D",
+    "id": "D",
+    "outputs": {
+      "X": 1,
+      "Y": 1,
+      "Z": 1
+    }
+  },
+  {
+    "subsystem": "trial",
+    "op": "probe",
+    "event_id": "door-closed",
+    "id": "door-closed",
+    "sample": "D",
+    "probe": "Z"
+  },
+  {
+    "subsystem": "trial",
+    "op": "probe",
+    "event_id": "y-D",
+    "id": "y-D",
+    "sample": "D",
+    "probe": "Y"
+  },
+  {
+    "subsystem": "trial",
+    "op": "probe",
+    "event_id": "z-D",
+    "id": "z-D",
+    "sample": "D",
+    "probe": "Z"
+  },
+  {
+    "subsystem": "specimen",
+    "op": "install",
+    "event_id": "fixture-E",
+    "id": "E",
+    "outputs": {
+      "X": 1,
+      "Y": 1,
+      "Z": 1
+    }
+  },
+  {
+    "subsystem": "trial",
+    "op": "probe",
+    "event_id": "x-E",
+    "id": "x-E",
+    "sample": "E",
+    "probe": "X"
+  },
+  {
+    "subsystem": "trial",
+    "op": "probe",
+    "event_id": "spent-E",
+    "id": "spent-E",
+    "sample": "E",
+    "probe": "Y"
+  }
+]
