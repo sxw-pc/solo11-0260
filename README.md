@@ -21,3 +21,13 @@ Run `python -m auditcourt custody --db audit.sqlite --fixture fixtures/custody_c
 ### Synthetic control changes
 
 `python -m auditcourt maintenance --db change.sqlite --fixture fixtures/maintenance_change.json` observes, approves, applies and independently verifies one bounded local configuration change. No real daemons or cluster APIs are accessed.
+
+### Conditional commissioning
+
+A commissioned setting uses the currently applied value of one control object to
+choose a permitted setting for another. The command uses the ordinary maintenance
+permit and adjustment record, and also records the exact input revision, chosen
+branch and target in `commission_runs`. An independent maintenance inspector can
+verify the actual change. Run `python -B -m auditcourt commission --fixture
+fixtures/commission_timeline.json --db commission.sqlite` followed by
+`python -B -m auditcourt replay --db commission.sqlite`.

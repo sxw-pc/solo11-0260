@@ -1,0 +1,139 @@
+[
+  {
+    "subsystem": "controls",
+    "op": "register",
+    "id": "register-x",
+    "event_id": "register-x",
+    "object": "x",
+    "value": 2,
+    "limit": 10
+  },
+  {
+    "subsystem": "controls",
+    "op": "register",
+    "id": "register-y",
+    "event_id": "register-y",
+    "object": "y",
+    "value": 3,
+    "limit": 10
+  },
+  {
+    "subsystem": "capture",
+    "op": "source",
+    "id": "local",
+    "event_id": "local",
+    "generation": 1,
+    "collector": "keeper"
+  },
+  {
+    "subsystem": "capture",
+    "op": "receive",
+    "id": "source-x",
+    "event_id": "source-x",
+    "source": "local",
+    "generation": 1,
+    "seq": 1,
+    "request_id": "r-x",
+    "actor": "rig",
+    "object_uid": "x",
+    "at": 1,
+    "digest": "observation-x"
+  },
+  {
+    "subsystem": "capture",
+    "op": "receive",
+    "id": "source-y",
+    "event_id": "source-y",
+    "source": "local",
+    "generation": 1,
+    "seq": 2,
+    "request_id": "r-y",
+    "actor": "rig",
+    "object_uid": "y",
+    "at": 1,
+    "digest": "observation-y"
+  },
+  {
+    "subsystem": "maintenance",
+    "op": "approve",
+    "id": "approve-x",
+    "event_id": "approve-x",
+    "evidence": "source-x",
+    "object": "x",
+    "operator": "tech",
+    "at": 2,
+    "until": 10
+  },
+  {
+    "subsystem": "maintenance",
+    "op": "approve",
+    "id": "approve-early",
+    "event_id": "approve-early",
+    "evidence": "source-y",
+    "object": "y",
+    "operator": "tech",
+    "at": 2,
+    "until": 10
+  },
+  {
+    "subsystem": "maintenance",
+    "op": "approve",
+    "id": "approve-late",
+    "event_id": "approve-late",
+    "evidence": "source-y",
+    "object": "y",
+    "operator": "tech",
+    "at": 2,
+    "until": 10
+  },
+  {
+    "subsystem": "commission",
+    "op": "execute",
+    "id": "early",
+    "event_id": "early",
+    "input": "x",
+    "target": "y",
+    "threshold": 5,
+    "on_low": 3,
+    "on_high": 6,
+    "permit": "approve-early",
+    "operator": "tech",
+    "at": 3
+  },
+  {
+    "subsystem": "controls",
+    "op": "apply",
+    "id": "push",
+    "event_id": "push",
+    "object": "x",
+    "permit": "approve-x",
+    "operator": "tech",
+    "revision": 1,
+    "delta": 3,
+    "at": 4
+  },
+  {
+    "subsystem": "commission",
+    "op": "execute",
+    "id": "late",
+    "event_id": "late",
+    "input": "x",
+    "target": "y",
+    "threshold": 5,
+    "on_low": 3,
+    "on_high": 6,
+    "permit": "approve-late",
+    "operator": "tech",
+    "at": 5
+  },
+  {
+    "subsystem": "maintenance",
+    "op": "outcome",
+    "id": "read-late",
+    "event_id": "read-late",
+    "change": "late",
+    "value": 6,
+    "inspector": "reviewer",
+    "at": 6
+  }
+]
