@@ -1,0 +1,100 @@
+[
+  {
+    "subsystem": "controls",
+    "op": "register",
+    "event_id": "register",
+    "id": "register",
+    "object": "x",
+    "value": 2,
+    "limit": 8
+  },
+  {
+    "subsystem": "controls",
+    "op": "apply",
+    "event_id": "denied",
+    "id": "denied",
+    "object": "x",
+    "operator": "operator",
+    "permit": "permit",
+    "at": 4,
+    "revision": 1,
+    "delta": 2
+  },
+  {
+    "subsystem": "capture",
+    "op": "source",
+    "event_id": "s",
+    "id": "s",
+    "generation": 1,
+    "collector": "c"
+  },
+  {
+    "subsystem": "capture",
+    "op": "receive",
+    "event_id": "obs",
+    "id": "obs",
+    "source": "s",
+    "generation": 1,
+    "seq": 1,
+    "request_id": "r",
+    "actor": "ops",
+    "object_uid": "x",
+    "at": 2,
+    "digest": "observation"
+  },
+  {
+    "subsystem": "maintenance",
+    "op": "approve",
+    "event_id": "permit",
+    "id": "permit",
+    "evidence": "obs",
+    "object": "x",
+    "operator": "operator",
+    "at": 3,
+    "until": 8
+  },
+  {
+    "subsystem": "maintenance",
+    "op": "outcome",
+    "event_id": "too-early",
+    "id": "too-early",
+    "change": "apply",
+    "inspector": "inspector",
+    "at": 5,
+    "value": 4
+  },
+  {
+    "subsystem": "controls",
+    "op": "apply",
+    "event_id": "apply",
+    "id": "apply",
+    "object": "x",
+    "operator": "operator",
+    "permit": "permit",
+    "at": 4,
+    "revision": 1,
+    "delta": 2
+  },
+  {
+    "subsystem": "maintenance",
+    "op": "outcome",
+    "event_id": "verified",
+    "id": "verified",
+    "change": "apply",
+    "inspector": "inspector",
+    "at": 5,
+    "value": 4
+  },
+  {
+    "subsystem": "controls",
+    "op": "apply",
+    "event_id": "too-late",
+    "id": "too-late",
+    "object": "x",
+    "operator": "operator",
+    "permit": "permit",
+    "at": 4,
+    "revision": 1,
+    "delta": 2
+  }
+]

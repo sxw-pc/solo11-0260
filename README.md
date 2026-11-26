@@ -17,3 +17,7 @@ Run `python -m auditcourt custody --db audit.sqlite --fixture fixtures/custody_c
 ### Evidence feed and investigation follow-up
 
 `python -m auditcourt feed --db feed.sqlite --fixture fixtures/followup_feed.json` exercises a bounded single-consumer feed and review tickets linked to accepted actions. Both modules replay from the event ledger.
+
+### Synthetic control changes
+
+`python -m auditcourt maintenance --db change.sqlite --fixture fixtures/maintenance_change.json` observes, approves, applies and independently verifies one bounded local configuration change. No real daemons or cluster APIs are accessed.

@@ -19,9 +19,13 @@ CREATE TABLE IF NOT EXISTS coverage_attestations(id TEXT PRIMARY KEY, source TEX
 CREATE TABLE IF NOT EXISTS followup_tickets(id TEXT PRIMARY KEY, evidence TEXT NOT NULL, reviewer TEXT NOT NULL, opened INTEGER NOT NULL, state TEXT NOT NULL, response TEXT, closed INTEGER);
 CREATE TABLE IF NOT EXISTS evidence_feeds(id TEXT PRIMARY KEY, object_uid TEXT NOT NULL, cursor INTEGER NOT NULL, pending TEXT);
 CREATE TABLE IF NOT EXISTS evidence_feed_batches(id TEXT PRIMARY KEY, feed TEXT NOT NULL, last_row INTEGER NOT NULL, acknowledged TEXT);
+CREATE TABLE IF NOT EXISTS control_objects(id TEXT PRIMARY KEY, revision INTEGER NOT NULL, value INTEGER NOT NULL, limit_value INTEGER NOT NULL);
+CREATE TABLE IF NOT EXISTS maintenance_approvals(id TEXT PRIMARY KEY, object TEXT NOT NULL, operator TEXT NOT NULL, evidence TEXT NOT NULL, at INTEGER NOT NULL, until_at INTEGER NOT NULL, used TEXT);
+CREATE TABLE IF NOT EXISTS control_changes(id TEXT PRIMARY KEY, object TEXT NOT NULL, operator TEXT NOT NULL, permit TEXT NOT NULL, at INTEGER NOT NULL, revision INTEGER NOT NULL, before_value INTEGER NOT NULL, after_value INTEGER NOT NULL);
+CREATE TABLE IF NOT EXISTS maintenance_outcomes(id TEXT PRIMARY KEY, change_id TEXT NOT NULL UNIQUE, inspector TEXT NOT NULL, at INTEGER NOT NULL);
 CREATE TABLE IF NOT EXISTS events(seq INTEGER PRIMARY KEY AUTOINCREMENT,subsystem TEXT,event_id TEXT UNIQUE,payload TEXT,result TEXT);
 '''
-TABLES=['event_sources','audit_events','sequence_gaps','conflict_cases','evidence_chains','chain_members','sealing_receipts','relation_edges','retention_policies','legal_holds','disclosure_cases','cleanup_cases','custody_vaults','custody_copies','coverage_attestations','followup_tickets','evidence_feeds','evidence_feed_batches']
+TABLES=['event_sources','audit_events','sequence_gaps','conflict_cases','evidence_chains','chain_members','sealing_receipts','relation_edges','retention_policies','legal_holds','disclosure_cases','cleanup_cases','custody_vaults','custody_copies','coverage_attestations','followup_tickets','evidence_feeds','evidence_feed_batches','control_objects','maintenance_approvals','control_changes','maintenance_outcomes']
 def connect(path):
     db=sqlite3.connect(path,isolation_level=None);db.row_factory=sqlite3.Row;db.execute('PRAGMA busy_timeout=5000');db.executescript(SCHEMA);return db
 def one(db,sql,args=()):
@@ -41,8 +45,8 @@ def act(db,sub,x,handler):
         db.execute('INSERT INTO events(subsystem,event_id,payload,result) VALUES(?,?,?,?)',(sub,x['event_id'],body,json.dumps(result,sort_keys=True,ensure_ascii=False)))
         return result
 def replay(path):
-    from . import capture,seal,hold,custody,coverage,feed,followup
-    a=connect(path);b=connect(':memory:');handlers={'capture':capture.run,'seal':seal.run,'hold':hold.run,'custody':custody.run,'coverage':coverage.run,'feed':feed.run,'followup':followup.run};bad=[];events=many(a,'SELECT * FROM events ORDER BY seq')
+    from . import capture,seal,hold,custody,coverage,feed,followup,controls,maintenance
+    a=connect(path);b=connect(':memory:');handlers={'capture':capture.run,'seal':seal.run,'hold':hold.run,'custody':custody.run,'coverage':coverage.run,'feed':feed.run,'followup':followup.run,'controls':controls.run,'maintenance':maintenance.run};bad=[];events=many(a,'SELECT * FROM events ORDER BY seq')
     for i,e in enumerate(events,1):
         got=handlers[e['subsystem']](b,json.loads(e['payload']))
         if got!=json.loads(e['result']):bad.append({'event':i})
