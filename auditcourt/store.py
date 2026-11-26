@@ -13,9 +13,11 @@ CREATE TABLE IF NOT EXISTS retention_policies(id TEXT PRIMARY KEY,object_uid TEX
 CREATE TABLE IF NOT EXISTS legal_holds(id TEXT PRIMARY KEY,object_uid TEXT,chain_id TEXT,actor TEXT,expires INTEGER,state TEXT);
 CREATE TABLE IF NOT EXISTS disclosure_cases(id TEXT PRIMARY KEY,object_uid TEXT,chain_id TEXT,requester TEXT,scope TEXT,decision TEXT,at INTEGER);
 CREATE TABLE IF NOT EXISTS cleanup_cases(id TEXT PRIMARY KEY,object_uid TEXT,decision TEXT,at INTEGER,reason TEXT);
+CREATE TABLE IF NOT EXISTS placards(id TEXT PRIMARY KEY,area TEXT NOT NULL,code TEXT NOT NULL,action TEXT NOT NULL,state TEXT NOT NULL);
+CREATE TABLE IF NOT EXISTS instruction_receipts(id TEXT PRIMARY KEY,placard TEXT NOT NULL,action TEXT NOT NULL);
 CREATE TABLE IF NOT EXISTS events(seq INTEGER PRIMARY KEY AUTOINCREMENT,subsystem TEXT,event_id TEXT UNIQUE,payload TEXT,result TEXT);
 '''
-TABLES=['event_sources','audit_events','sequence_gaps','conflict_cases','evidence_chains','chain_members','sealing_receipts','relation_edges','retention_policies','legal_holds','disclosure_cases','cleanup_cases']
+TABLES=['event_sources','audit_events','sequence_gaps','conflict_cases','evidence_chains','chain_members','sealing_receipts','relation_edges','retention_policies','legal_holds','disclosure_cases','cleanup_cases','placards','instruction_receipts']
 def connect(path):
     db=sqlite3.connect(path,isolation_level=None);db.row_factory=sqlite3.Row;db.execute('PRAGMA busy_timeout=5000');db.executescript(SCHEMA);return db
 def one(db,sql,args=()):
@@ -35,8 +37,8 @@ def act(db,sub,x,handler):
         db.execute('INSERT INTO events(subsystem,event_id,payload,result) VALUES(?,?,?,?)',(sub,x['event_id'],body,json.dumps(result,sort_keys=True,ensure_ascii=False)))
         return result
 def replay(path):
-    from . import capture,seal,hold
-    a=connect(path);b=connect(':memory:');handlers={'capture':capture.run,'seal':seal.run,'hold':hold.run};bad=[];events=many(a,'SELECT * FROM events ORDER BY seq')
+    from . import capture,seal,hold,placard,reader
+    a=connect(path);b=connect(':memory:');handlers={'capture':capture.run,'seal':seal.run,'hold':hold.run,'placard':placard.run,'reader':reader.run};bad=[];events=many(a,'SELECT * FROM events ORDER BY seq')
     for i,e in enumerate(events,1):
         got=handlers[e['subsystem']](b,json.loads(e['payload']))
         if got!=json.loads(e['result']):bad.append({'event':i})

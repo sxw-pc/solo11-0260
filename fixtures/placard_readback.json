@@ -1,0 +1,83 @@
+[
+  {
+    "subsystem": "reader",
+    "op": "read",
+    "id": "before",
+    "area": "east",
+    "code": "000",
+    "event_id": "placard-0"
+  },
+  {
+    "subsystem": "placard",
+    "op": "print",
+    "id": "E",
+    "area": "east",
+    "code": "000",
+    "action": "close-test-feed",
+    "event_id": "placard-1"
+  },
+  {
+    "subsystem": "reader",
+    "op": "read",
+    "id": "after",
+    "area": "east",
+    "code": "000",
+    "event_id": "placard-2"
+  },
+  {
+    "subsystem": "placard",
+    "op": "print",
+    "id": "W",
+    "area": "west",
+    "code": "011",
+    "action": "stop-test-intake",
+    "event_id": "placard-3"
+  },
+  {
+    "subsystem": "placard",
+    "op": "print",
+    "id": "C",
+    "area": "center",
+    "code": "011",
+    "action": "isolate-test-bank",
+    "event_id": "placard-4"
+  },
+  {
+    "subsystem": "reader",
+    "op": "read",
+    "id": "west",
+    "area": "west",
+    "code": "011",
+    "event_id": "placard-5"
+  },
+  {
+    "subsystem": "reader",
+    "op": "read",
+    "id": "center",
+    "area": "center",
+    "code": "011",
+    "event_id": "placard-6"
+  },
+  {
+    "subsystem": "reader",
+    "op": "read",
+    "id": "smudge",
+    "area": "west",
+    "code": "01?",
+    "event_id": "placard-7"
+  },
+  {
+    "subsystem": "placard",
+    "op": "retire",
+    "id": "E",
+    "event_id": "placard-8"
+  },
+  {
+    "subsystem": "reader",
+    "op": "read",
+    "id": "retired",
+    "area": "east",
+    "code": "000",
+    "event_id": "placard-9"
+  }
+]
