@@ -1,0 +1,1 @@
+[{"op":"link","event_id":"link-1","id":"link-1","child":"event-4","parent":"event-3","at":14},{"op":"seal","event_id":"seal-1","id":"chain-1","object_uid":"object-a","version":1,"prior":null,"receipt":"seal-receipt-1","at":20},{"op":"verify","event_id":"verify-1","id":"chain-1"}]
