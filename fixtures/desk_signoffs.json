@@ -1,0 +1,96 @@
+[
+  {
+    "subsystem": "flags",
+    "op": "set",
+    "id": "east-x",
+    "event_id": "east-x",
+    "desk": "east",
+    "flag": "x",
+    "value": 0
+  },
+  {
+    "subsystem": "flags",
+    "op": "set",
+    "id": "east-y",
+    "event_id": "east-y",
+    "desk": "east",
+    "flag": "y",
+    "value": 0
+  },
+  {
+    "subsystem": "flags",
+    "op": "set",
+    "id": "west-x",
+    "event_id": "west-x",
+    "desk": "west",
+    "flag": "x",
+    "value": 0
+  },
+  {
+    "subsystem": "flags",
+    "op": "set",
+    "id": "west-y",
+    "event_id": "west-y",
+    "desk": "west",
+    "flag": "y",
+    "value": 0
+  },
+  {
+    "subsystem": "flags",
+    "op": "set",
+    "id": "comparison-x",
+    "event_id": "comparison-x",
+    "desk": "comparison",
+    "flag": "x",
+    "value": 0
+  },
+  {
+    "subsystem": "flags",
+    "op": "set",
+    "id": "comparison-y",
+    "event_id": "comparison-y",
+    "desk": "comparison",
+    "flag": "y",
+    "value": 0
+  },
+  {
+    "subsystem": "signoff",
+    "op": "inspect",
+    "id": "east-review",
+    "event_id": "east-review",
+    "desk": "east",
+    "prerequisite": "x",
+    "expected": 0,
+    "disposition": "y"
+  },
+  {
+    "subsystem": "signoff",
+    "op": "inspect",
+    "id": "west-review",
+    "event_id": "west-review",
+    "desk": "west",
+    "prerequisite": "y",
+    "expected": 0,
+    "disposition": "x"
+  },
+  {
+    "subsystem": "signoff",
+    "op": "inspect",
+    "id": "comparison-first",
+    "event_id": "comparison-first",
+    "desk": "comparison",
+    "prerequisite": "x",
+    "expected": 0,
+    "disposition": "y"
+  },
+  {
+    "subsystem": "signoff",
+    "op": "inspect",
+    "id": "comparison-second",
+    "event_id": "comparison-second",
+    "desk": "comparison",
+    "prerequisite": "y",
+    "expected": 0,
+    "disposition": "x"
+  }
+]
