@@ -16,9 +16,12 @@ CREATE TABLE IF NOT EXISTS cleanup_cases(id TEXT PRIMARY KEY,object_uid TEXT,dec
 CREATE TABLE IF NOT EXISTS custody_vaults(id TEXT PRIMARY KEY, zone TEXT NOT NULL, capacity INTEGER NOT NULL);
 CREATE TABLE IF NOT EXISTS custody_copies(id TEXT PRIMARY KEY, chain TEXT NOT NULL, vault TEXT NOT NULL, state TEXT NOT NULL, deposited INTEGER NOT NULL, released INTEGER);
 CREATE TABLE IF NOT EXISTS coverage_attestations(id TEXT PRIMARY KEY, source TEXT NOT NULL, generation INTEGER NOT NULL, collector TEXT NOT NULL, first INTEGER NOT NULL, last INTEGER NOT NULL, issued INTEGER NOT NULL);
+CREATE TABLE IF NOT EXISTS followup_tickets(id TEXT PRIMARY KEY, evidence TEXT NOT NULL, reviewer TEXT NOT NULL, opened INTEGER NOT NULL, state TEXT NOT NULL, response TEXT, closed INTEGER);
+CREATE TABLE IF NOT EXISTS evidence_feeds(id TEXT PRIMARY KEY, object_uid TEXT NOT NULL, cursor INTEGER NOT NULL, pending TEXT);
+CREATE TABLE IF NOT EXISTS evidence_feed_batches(id TEXT PRIMARY KEY, feed TEXT NOT NULL, last_row INTEGER NOT NULL, acknowledged TEXT);
 CREATE TABLE IF NOT EXISTS events(seq INTEGER PRIMARY KEY AUTOINCREMENT,subsystem TEXT,event_id TEXT UNIQUE,payload TEXT,result TEXT);
 '''
-TABLES=['event_sources','audit_events','sequence_gaps','conflict_cases','evidence_chains','chain_members','sealing_receipts','relation_edges','retention_policies','legal_holds','disclosure_cases','cleanup_cases','custody_vaults','custody_copies','coverage_attestations']
+TABLES=['event_sources','audit_events','sequence_gaps','conflict_cases','evidence_chains','chain_members','sealing_receipts','relation_edges','retention_policies','legal_holds','disclosure_cases','cleanup_cases','custody_vaults','custody_copies','coverage_attestations','followup_tickets','evidence_feeds','evidence_feed_batches']
 def connect(path):
     db=sqlite3.connect(path,isolation_level=None);db.row_factory=sqlite3.Row;db.execute('PRAGMA busy_timeout=5000');db.executescript(SCHEMA);return db
 def one(db,sql,args=()):
@@ -38,8 +41,8 @@ def act(db,sub,x,handler):
         db.execute('INSERT INTO events(subsystem,event_id,payload,result) VALUES(?,?,?,?)',(sub,x['event_id'],body,json.dumps(result,sort_keys=True,ensure_ascii=False)))
         return result
 def replay(path):
-    from . import capture,seal,hold,custody,coverage
-    a=connect(path);b=connect(':memory:');handlers={'capture':capture.run,'seal':seal.run,'hold':hold.run,'custody':custody.run,'coverage':coverage.run};bad=[];events=many(a,'SELECT * FROM events ORDER BY seq')
+    from . import capture,seal,hold,custody,coverage,feed,followup
+    a=connect(path);b=connect(':memory:');handlers={'capture':capture.run,'seal':seal.run,'hold':hold.run,'custody':custody.run,'coverage':coverage.run,'feed':feed.run,'followup':followup.run};bad=[];events=many(a,'SELECT * FROM events ORDER BY seq')
     for i,e in enumerate(events,1):
         got=handlers[e['subsystem']](b,json.loads(e['payload']))
         if got!=json.loads(e['result']):bad.append({'event':i})

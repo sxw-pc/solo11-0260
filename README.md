@@ -13,3 +13,7 @@ python -m unittest discover -s tests -v
 ### Local custody and collector coverage
 
 Run `python -m auditcourt custody --db audit.sqlite --fixture fixtures/custody_coverage.json` to replay collection, testimony, sealing, and vault setup. `coverage attest` proves an enumerated window was received without known disputes. The `custody` entry opens vaults, deposits a sealed chain using its digest, lists stored copies, and releases copies subject to an active hold.
+
+### Evidence feed and investigation follow-up
+
+`python -m auditcourt feed --db feed.sqlite --fixture fixtures/followup_feed.json` exercises a bounded single-consumer feed and review tickets linked to accepted actions. Both modules replay from the event ledger.

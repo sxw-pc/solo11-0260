@@ -1,0 +1,98 @@
+[
+  {
+    "subsystem": "capture",
+    "op": "source",
+    "event_id": "collector",
+    "id": "s",
+    "generation": 1,
+    "collector": "c"
+  },
+  {
+    "subsystem": "feed",
+    "op": "subscribe",
+    "event_id": "subscribe",
+    "id": "f",
+    "object_uid": "o"
+  },
+  {
+    "subsystem": "feed",
+    "op": "read",
+    "event_id": "read-before",
+    "id": "f",
+    "limit": 5
+  },
+  {
+    "subsystem": "capture",
+    "op": "receive",
+    "event_id": "receive-1",
+    "id": "e1",
+    "source": "s",
+    "generation": 1,
+    "seq": 1,
+    "request_id": "r1",
+    "actor": "ops",
+    "object_uid": "o",
+    "at": 1,
+    "digest": "one"
+  },
+  {
+    "subsystem": "feed",
+    "op": "read",
+    "event_id": "read-first",
+    "id": "f",
+    "limit": 5
+  },
+  {
+    "subsystem": "followup",
+    "op": "open",
+    "event_id": "open",
+    "id": "ticket",
+    "at": 3,
+    "evidence": "e1",
+    "reviewer": "reviewer"
+  },
+  {
+    "subsystem": "capture",
+    "op": "receive",
+    "event_id": "receive-2",
+    "id": "e2",
+    "source": "s",
+    "generation": 1,
+    "seq": 2,
+    "request_id": "r2",
+    "actor": "ops",
+    "object_uid": "o",
+    "at": 4,
+    "digest": "two"
+  },
+  {
+    "subsystem": "followup",
+    "op": "respond",
+    "event_id": "respond",
+    "id": "ticket",
+    "at": 5,
+    "response": "e2",
+    "reviewer": "reviewer"
+  },
+  {
+    "subsystem": "feed",
+    "op": "read",
+    "event_id": "read-pending",
+    "id": "f",
+    "limit": 5
+  },
+  {
+    "subsystem": "feed",
+    "op": "ack",
+    "event_id": "ack-first",
+    "id": "f",
+    "batch": "read-first"
+  },
+  {
+    "subsystem": "feed",
+    "op": "read",
+    "event_id": "read-second",
+    "id": "f",
+    "limit": 5
+  }
+]
