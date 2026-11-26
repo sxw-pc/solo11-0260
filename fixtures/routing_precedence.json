@@ -1,0 +1,86 @@
+[
+  {
+    "subsystem": "triage",
+    "op": "open",
+    "scope": "safety",
+    "id": "unconfigured",
+    "event_id": "unconfigured",
+    "site": "west",
+    "severity": "critical",
+    "signal": "heat"
+  },
+  {
+    "subsystem": "routing",
+    "op": "publish",
+    "scope": "safety",
+    "id": "current",
+    "event_id": "current",
+    "version": 1,
+    "rules": [
+      {
+        "site": "west",
+        "severity": "critical",
+        "signal": "*",
+        "destination": "pager"
+      },
+      {
+        "site": "*",
+        "severity": "*",
+        "signal": "heat",
+        "destination": "manual"
+      }
+    ]
+  },
+  {
+    "subsystem": "triage",
+    "op": "open",
+    "scope": "safety",
+    "id": "before",
+    "event_id": "before",
+    "site": "west",
+    "severity": "critical",
+    "signal": "heat"
+  },
+  {
+    "subsystem": "routing",
+    "op": "publish",
+    "scope": "safety",
+    "id": "proposed",
+    "event_id": "proposed",
+    "version": 2,
+    "rules": [
+      {
+        "site": "*",
+        "severity": "*",
+        "signal": "heat",
+        "destination": "manual"
+      },
+      {
+        "site": "west",
+        "severity": "critical",
+        "signal": "*",
+        "destination": "pager"
+      }
+    ]
+  },
+  {
+    "subsystem": "triage",
+    "op": "open",
+    "scope": "safety",
+    "id": "after",
+    "event_id": "after",
+    "site": "west",
+    "severity": "critical",
+    "signal": "heat"
+  },
+  {
+    "subsystem": "triage",
+    "op": "open",
+    "scope": "safety",
+    "id": "other",
+    "event_id": "other",
+    "site": "west",
+    "severity": "critical",
+    "signal": "noise"
+  }
+]

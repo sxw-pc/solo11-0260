@@ -21,3 +21,10 @@ Run `python -m auditcourt custody --db audit.sqlite --fixture fixtures/custody_c
 ### Synthetic control changes
 
 `python -m auditcourt maintenance --db change.sqlite --fixture fixtures/maintenance_change.json` observes, approves, applies and independently verifies one bounded local configuration change. No real daemons or cluster APIs are accessed.
+
+### Follow-up duty routing
+
+`routing publish` adds an ordered rule version for one audit scope. The first
+matching site/severity/signal combination determines a destination. `triage
+open` persists an actual local ticket in that queue, bound to the version in
+force at intake. Use `fixtures/routing_precedence.json` to exercise reordering.
