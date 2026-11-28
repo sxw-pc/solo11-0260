@@ -13,3 +13,22 @@ python -m unittest discover -s tests -v
 ### Local custody and collector coverage
 
 Run `python -m auditcourt custody --db audit.sqlite --fixture fixtures/custody_coverage.json` to replay collection, testimony, sealing, and vault setup. `coverage attest` proves an enumerated window was received without known disputes. The `custody` entry opens vaults, deposits a sealed chain using its digest, lists stored copies, and releases copies subject to an active hold.
+
+### Withdrawal tickets under watch duties
+
+A legal hold binds an actual sealed chain version, and each version keeps its own members and digest, so the hold no longer blocks every copy outright. `custody` now lands three business records:
+
+- `watch` registers a duty on one chain version: `forensic` is the dual-failure-domain continuous-readback contract; `cold` is custodian-lead approved cold custody (`approver` required). Each carries its own responsibility window.
+- `read_test` records a successful readback of one stored copy; its time cannot predate the deposit receipt.
+- `withdraw` opens a withdrawal ticket for one named copy and `withdraw_complete` removes it and returns the vault slot.
+
+Every chain version under the same held object must satisfy its own custody duty: a child/older version, a copy of another object, or a same-vault slot is not an independent backup. A valid independent backup is a stored, read-tested copy of the same chain in another vault whose watch duty covers the whole withdrawal window. Under a forensic watch, surviving read-tested copies must span two failure domains before the ticket issues — without a pre-confirmed relay the north copy stays at the window start and no withdrawal receipt is emitted. The cold contract may close online readback once the retained cold copy covers the full window. Read-tested backups are claimed on the open ticket (`copy_claim_locked` blocks ordinary release) until completion. Pending and late-arriving tickets never offset current vault capacity.
+
+The two synthetic records for case O replay independently from an empty database:
+
+```sh
+python -m auditcourt custody --db forensic.sqlite --fixture fixtures/withdraw_forensic.json
+python -m auditcourt custody --db cold.sqlite --fixture fixtures/withdraw_cold.json
+python -m auditcourt replay --db forensic.sqlite
+python -m auditcourt replay --db cold.sqlite
+```

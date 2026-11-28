@@ -15,10 +15,14 @@ CREATE TABLE IF NOT EXISTS disclosure_cases(id TEXT PRIMARY KEY,object_uid TEXT,
 CREATE TABLE IF NOT EXISTS cleanup_cases(id TEXT PRIMARY KEY,object_uid TEXT,decision TEXT,at INTEGER,reason TEXT);
 CREATE TABLE IF NOT EXISTS custody_vaults(id TEXT PRIMARY KEY, zone TEXT NOT NULL, capacity INTEGER NOT NULL);
 CREATE TABLE IF NOT EXISTS custody_copies(id TEXT PRIMARY KEY, chain TEXT NOT NULL, vault TEXT NOT NULL, state TEXT NOT NULL, deposited INTEGER NOT NULL, released INTEGER);
+CREATE TABLE IF NOT EXISTS custody_watches(id TEXT PRIMARY KEY, object_uid TEXT NOT NULL, chain TEXT NOT NULL, kind TEXT NOT NULL, actor TEXT NOT NULL, starts INTEGER NOT NULL, expires INTEGER NOT NULL, state TEXT NOT NULL, approver TEXT);
+CREATE TABLE IF NOT EXISTS read_tests(id TEXT PRIMARY KEY, copy TEXT NOT NULL, chain TEXT NOT NULL, at INTEGER NOT NULL, state TEXT NOT NULL);
+CREATE TABLE IF NOT EXISTS withdrawal_tickets(id TEXT PRIMARY KEY, copy TEXT NOT NULL, chain TEXT NOT NULL, vault TEXT NOT NULL, starts INTEGER NOT NULL, ends INTEGER NOT NULL, contract TEXT, state TEXT NOT NULL, requested_at INTEGER NOT NULL, completed_at INTEGER);
+CREATE TABLE IF NOT EXISTS read_test_claims(ticket TEXT NOT NULL, copy TEXT NOT NULL, PRIMARY KEY(ticket, copy));
 CREATE TABLE IF NOT EXISTS coverage_attestations(id TEXT PRIMARY KEY, source TEXT NOT NULL, generation INTEGER NOT NULL, collector TEXT NOT NULL, first INTEGER NOT NULL, last INTEGER NOT NULL, issued INTEGER NOT NULL);
 CREATE TABLE IF NOT EXISTS events(seq INTEGER PRIMARY KEY AUTOINCREMENT,subsystem TEXT,event_id TEXT UNIQUE,payload TEXT,result TEXT);
 '''
-TABLES=['event_sources','audit_events','sequence_gaps','conflict_cases','evidence_chains','chain_members','sealing_receipts','relation_edges','retention_policies','legal_holds','disclosure_cases','cleanup_cases','custody_vaults','custody_copies','coverage_attestations']
+TABLES=['event_sources','audit_events','sequence_gaps','conflict_cases','evidence_chains','chain_members','sealing_receipts','relation_edges','retention_policies','legal_holds','disclosure_cases','cleanup_cases','custody_vaults','custody_copies','coverage_attestations','custody_watches','read_tests','withdrawal_tickets','read_test_claims']
 def connect(path):
     db=sqlite3.connect(path,isolation_level=None);db.row_factory=sqlite3.Row;db.execute('PRAGMA busy_timeout=5000');db.executescript(SCHEMA);return db
 def one(db,sql,args=()):

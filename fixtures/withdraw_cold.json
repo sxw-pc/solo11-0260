@@ -1,0 +1,297 @@
+[
+  {
+    "subsystem": "capture",
+    "op": "source",
+    "event_id": "src1",
+    "id": "s1",
+    "generation": 1,
+    "collector": "col1"
+  },
+  {
+    "subsystem": "capture",
+    "op": "receive",
+    "event_id": "e1",
+    "id": "e1",
+    "source": "s1",
+    "generation": 1,
+    "seq": 1,
+    "object_uid": "O",
+    "request_id": "q1",
+    "actor": "ops",
+    "at": 1,
+    "digest": "d1"
+  },
+  {
+    "subsystem": "capture",
+    "op": "receive",
+    "event_id": "e2",
+    "id": "e2",
+    "source": "s1",
+    "generation": 1,
+    "seq": 2,
+    "object_uid": "O",
+    "request_id": "q2",
+    "actor": "ops",
+    "at": 2,
+    "digest": "d2"
+  },
+  {
+    "subsystem": "capture",
+    "op": "receive",
+    "event_id": "e4",
+    "id": "e4",
+    "source": "s1",
+    "generation": 1,
+    "seq": 4,
+    "object_uid": "O",
+    "request_id": "q4",
+    "actor": "ops",
+    "at": 4,
+    "digest": "d4"
+  },
+  {
+    "subsystem": "seal",
+    "op": "seal",
+    "event_id": "b1",
+    "id": "B1",
+    "object_uid": "O",
+    "version": 1,
+    "prior": null,
+    "receipt": "rb1",
+    "at": 5
+  },
+  {
+    "subsystem": "capture",
+    "op": "receive",
+    "event_id": "e3",
+    "id": "e3",
+    "source": "s1",
+    "generation": 1,
+    "seq": 3,
+    "object_uid": "O",
+    "request_id": "q3",
+    "actor": "ops",
+    "at": 3,
+    "received_at": 6,
+    "digest": "d3"
+  },
+  {
+    "subsystem": "seal",
+    "op": "seal",
+    "event_id": "b2",
+    "id": "B2",
+    "object_uid": "O",
+    "version": 2,
+    "prior": "B1",
+    "receipt": "rb2",
+    "at": 7
+  },
+  {
+    "subsystem": "capture",
+    "op": "source",
+    "event_id": "src2",
+    "id": "s2",
+    "generation": 1,
+    "collector": "col2"
+  },
+  {
+    "subsystem": "capture",
+    "op": "receive",
+    "event_id": "g1",
+    "id": "g1",
+    "source": "s2",
+    "generation": 1,
+    "seq": 1,
+    "object_uid": "O2",
+    "request_id": "z1",
+    "actor": "ops",
+    "at": 2,
+    "digest": "x1"
+  },
+  {
+    "subsystem": "seal",
+    "op": "seal",
+    "event_id": "c1",
+    "id": "C1",
+    "object_uid": "O2",
+    "version": 1,
+    "prior": null,
+    "receipt": "rc1",
+    "at": 7
+  },
+  {
+    "subsystem": "hold",
+    "op": "hold",
+    "event_id": "hold-b2",
+    "id": "hold-b2",
+    "object_uid": "O",
+    "chain": "B2",
+    "actor": "investigator",
+    "expires": 40,
+    "at": 8
+  },
+  {
+    "op": "vault",
+    "event_id": "vn",
+    "id": "vn",
+    "zone": "north",
+    "capacity": 3,
+    "at": 8
+  },
+  {
+    "op": "vault",
+    "event_id": "ve",
+    "id": "ve",
+    "zone": "east",
+    "capacity": 3,
+    "at": 8
+  },
+  {
+    "op": "vault",
+    "event_id": "vw",
+    "id": "vw",
+    "zone": "west",
+    "capacity": 3,
+    "at": 8
+  },
+  {
+    "op": "deposit",
+    "event_id": "dep-bn",
+    "id": "Bn",
+    "chain": "B2",
+    "vault": "vn",
+    "digest": "b77f079c2edb1e9637e6f684738830939f9d3fb988bcd4fd6d51a3fc85672d45",
+    "at": 9
+  },
+  {
+    "op": "deposit",
+    "event_id": "dep-be",
+    "id": "Be",
+    "chain": "B2",
+    "vault": "ve",
+    "digest": "b77f079c2edb1e9637e6f684738830939f9d3fb988bcd4fd6d51a3fc85672d45",
+    "at": 9
+  },
+  {
+    "op": "deposit",
+    "event_id": "dep-bo",
+    "id": "Bo",
+    "chain": "B1",
+    "vault": "vw",
+    "digest": "17e2d93442613f26343fe717b1ae604ea541d802ee10fe440c525984a41a2969",
+    "at": 9
+  },
+  {
+    "op": "deposit",
+    "event_id": "dep-n2",
+    "id": "N2",
+    "chain": "B2",
+    "vault": "vn",
+    "digest": "b77f079c2edb1e9637e6f684738830939f9d3fb988bcd4fd6d51a3fc85672d45",
+    "at": 10
+  },
+  {
+    "op": "deposit",
+    "event_id": "dep-xo",
+    "id": "Xo",
+    "chain": "C1",
+    "vault": "vw",
+    "digest": "d608f82e0d6ac1f4f224005110b191187b24df16d193c7ba3354a83b83ea8bbe",
+    "at": 10
+  },
+  {
+    "op": "watch",
+    "event_id": "watch-c",
+    "id": "wC",
+    "object_uid": "O",
+    "chain": "B2",
+    "kind": "cold",
+    "actor": "custodian",
+    "approver": "custody-lead",
+    "starts": 12,
+    "expires": 17,
+    "at": 11
+  },
+  {
+    "op": "read_test",
+    "event_id": "rt-bn-early",
+    "id": "Bn",
+    "copy": "Bn",
+    "at": 8
+  },
+  {
+    "op": "read_test",
+    "event_id": "rt-be",
+    "id": "Be",
+    "copy": "Be",
+    "at": 11
+  },
+  {
+    "op": "deposit",
+    "event_id": "dep-north-extra",
+    "id": "N3",
+    "chain": "B2",
+    "vault": "vn",
+    "digest": "b77f079c2edb1e9637e6f684738830939f9d3fb988bcd4fd6d51a3fc85672d45",
+    "at": 11
+  },
+  {
+    "op": "withdraw",
+    "event_id": "w-old-version",
+    "id": "Bn",
+    "ticket": "t-old",
+    "backup": "Bo",
+    "ends": 16,
+    "at": 12
+  },
+  {
+    "op": "withdraw",
+    "event_id": "w-other-object",
+    "id": "Bn",
+    "ticket": "t-obj",
+    "backup": "Xo",
+    "ends": 16,
+    "at": 12
+  },
+  {
+    "op": "withdraw",
+    "event_id": "w-same-vault",
+    "id": "Bn",
+    "ticket": "t-same",
+    "backup": "N2",
+    "ends": 16,
+    "at": 12
+  },
+  {
+    "op": "withdraw",
+    "event_id": "w-no-backup",
+    "id": "Bn",
+    "ticket": "t-none",
+    "ends": 16,
+    "at": 12
+  },
+  {
+    "op": "withdraw",
+    "event_id": "withdraw-bn",
+    "id": "Bn",
+    "ticket": "ticket-bn",
+    "backup": "Be",
+    "ends": 16,
+    "at": 12
+  },
+  {
+    "op": "withdraw_complete",
+    "event_id": "complete-bn",
+    "id": "ticket-bn",
+    "at": 12
+  },
+  {
+    "op": "deposit",
+    "event_id": "dep-restore",
+    "id": "Bc",
+    "chain": "B2",
+    "vault": "vn",
+    "digest": "b77f079c2edb1e9637e6f684738830939f9d3fb988bcd4fd6d51a3fc85672d45",
+    "at": 13
+  }
+]
